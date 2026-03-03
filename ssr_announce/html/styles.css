@@ -82,6 +82,7 @@ body {
     transform: rotate(-45deg);
     filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.6));
     z-index: 999;
+    animation: logo-float 1.8s ease-in-out infinite;
 }
 
 .annouce_index-text {
@@ -140,5 +141,18 @@ body {
         margin: 0;
         opacity: 0;
         transition: all .4s ease-in-out;
+    }
+}
+
+@keyframes logo-float {
+    0%,
+    100% {
+        transform: rotate(-45deg) scale(1);
+        filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.6));
+    }
+
+    50% {
+        transform: rotate(-45deg) scale(1.12);
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.35));
     }
 }
