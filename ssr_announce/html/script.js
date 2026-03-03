@@ -30,7 +30,7 @@ $(function() {
 		return safeDuration * 1000;
 	}
 
-	function scheduleRemoval(id, messageKey, durationMs) {
+	function scheduleRemoval(wrapperId, messageKey, durationMs) {
 		const existing = activeAnnouncements.get(messageKey);
 		if (!existing) {
 			return;
@@ -41,7 +41,7 @@ $(function() {
 		}
 
 		existing.timer = setTimeout(function() {
-			const $target = $(`#${id}`);
+			const $target = $(`#${wrapperId}`);
 			$target.addClass('slide-out');
 			setTimeout(function() {
 				$target.remove();
@@ -73,30 +73,39 @@ $(function() {
 		const existing = activeAnnouncements.get(messageKey);
 		if (existing) {
 			existing.count += 1;
-			const suffix = existing.count > 1 ? ` x${existing.count}` : '';
-			$(`#${existing.id} .annouce_message`).html(`${escapeHtml(message)}${suffix}`);
-			scheduleRemoval(existing.id, messageKey, durationMs);
+			const $multi = $(`#${existing.wrapperId} .annouce_index-multi`);
+			$multi.text(`x${existing.count}`).addClass('show bump');
+			setTimeout(function() {
+				$multi.removeClass('bump');
+			}, 280);
+			scheduleRemoval(existing.wrapperId, messageKey, durationMs);
 			return;
 		}
 
-		const id = `annouce_${Math.floor(Math.random() * 100000 + 1)}`;
+		const randomId = Math.floor(Math.random() * 100000 + 1);
+		const wrapperId = `annouce_wrap_${randomId}`;
+		const boxId = `annouce_${randomId}`;
 		const safeLogoPath = normalizeLogoPath(data.logo);
 
 		$('.annouce').append(`
-			<div class="annouce_index" id="${id}" style="--bg_color: ${style.bg_color || 'rgba(7, 11, 18, 0.97)'}; --icon_color: ${style.icon_color || 'rgb(75, 126, 214)'}; --title_color: ${style.title_color || '#ffffff'}; --text_color: ${style.text_color || '#ffffff'};">
-				<div class="annouce_index-title"><img src="./${safeLogoPath}"></div>
-				<div class="annouce_index-text"><span>${escapeHtml(title)}</span> <span class="annouce_message">${escapeHtml(message)}</span></div>
-				<div class="annouce_index-icon"><iconify-icon icon="foundation:megaphone"></iconify-icon></div>
+			<div class="annouce_wrap" id="${wrapperId}">
+				<div class="annouce_index" id="${boxId}" style="--bg_color: ${style.bg_color || 'rgba(7, 11, 18, 0.97)'}; --icon_color: ${style.icon_color || 'rgb(75, 126, 214)'}; --title_color: ${style.title_color || '#ffffff'}; --text_color: ${style.text_color || '#ffffff'};">
+					<div class="annouce_index-title"><img src="./${safeLogoPath}"></div>
+					<div class="annouce_index-text"><span>${escapeHtml(title)}</span> <span class="annouce_message">${escapeHtml(message)}</span></div>
+					<div class="annouce_index-icon"><iconify-icon icon="foundation:megaphone"></iconify-icon></div>
+				</div>
+				<div class="annouce_index-multi">x1</div>
 			</div>
 		`);
 
 		activeAnnouncements.set(messageKey, {
-			id,
+			wrapperId,
+			boxId,
 			count: 1,
 			timer: null,
 		});
 
-		scheduleRemoval(id, messageKey, durationMs);
+		scheduleRemoval(wrapperId, messageKey, durationMs);
 	});
 });
 
