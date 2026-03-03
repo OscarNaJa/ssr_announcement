@@ -37,6 +37,9 @@ body {
     align-items: center;
     gap: 1vh;
     margin-bottom: 1vh;
+    transform-origin: top center;
+    animation: announce-in 0.52s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: transform, opacity, filter;
 }
 
 .annouce_index {
@@ -46,7 +49,6 @@ body {
     position: relative;
     min-height: 3vh;
     border-radius: 4px;
-    animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     overflow: hidden;
 }
 
@@ -150,27 +152,46 @@ body {
     animation: multi-bump 0.28s ease;
 }
 
-@keyframes slide-in-top {
-    0% {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
 .slide-out {
-    animation: slide-out 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    animation: announce-out 0.42s cubic-bezier(0.4, 0, 1, 1) forwards;
+    pointer-events: none;
 }
 
-@keyframes slide-out {
-    100% {
-        height: 0;
-        margin: 0;
+@keyframes announce-in {
+    0% {
+        transform: translateY(-18px) scale(0.96);
         opacity: 0;
-        transition: all .4s ease-in-out;
+        filter: blur(4px);
+    }
+
+    60% {
+        transform: translateY(2px) scale(1.01);
+        opacity: 1;
+        filter: blur(0);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes announce-out {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        max-height: 8vh;
+        margin-bottom: 1vh;
+        filter: blur(0);
+    }
+
+    100% {
+        transform: translateY(-10px) scale(0.97);
+        opacity: 0;
+        max-height: 0;
+        margin-bottom: 0;
+        filter: blur(2px);
     }
 }
 
@@ -192,10 +213,12 @@ body {
         transform: scale(0.9);
         opacity: 0.7;
     }
+
     60% {
         transform: scale(1.12);
         opacity: 1;
     }
+
     100% {
         transform: scale(1);
         opacity: 1;
