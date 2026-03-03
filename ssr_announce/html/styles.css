@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --safe-gap: clamp(8px, 2vmin, 20px);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Kanit', sans-serif;
+}
+
+#app {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.announce-list {
+    position: absolute;
+    top: var(--safe-gap);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(92vw, 920px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.announce-item {
+    --bg_color: rgba(7, 11, 18, 0.97);
+    --icon_color: rgb(75, 126, 214);
+    --title_color: #ffffff;
+    --text_color: #ffffff;
+
+    display: grid;
+    grid-template-columns: clamp(48px, 6vw, 64px) 1fr auto;
+    align-items: center;
+    min-height: clamp(50px, 7vw, 70px);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg_color);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    animation: slide-in-top 0.35s ease-out both;
+}
+
+.announce-badge {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--icon_color);
+}
+
+.announce-badge img {
+    width: clamp(22px, 2.6vw, 28px);
+    height: clamp(22px, 2.6vw, 28px);
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+}
+
+.announce-text {
+    padding: 10px 14px;
+    color: var(--text_color);
+    font-size: clamp(12px, 1.8vw, 18px);
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.announce-text span {
+    color: var(--title_color);
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+.announce-icon {
+    padding-right: 12px;
+    font-size: clamp(14px, 2vw, 20px);
+    color: #ffffff;
+    opacity: 0.9;
+}
+
+.slide-out {
+    animation: slide-out 0.35s ease-in both;
+}
+
+@keyframes slide-in-top {
+    from {
+        transform: translateY(-18px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-out {
+    to {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.98);
+        max-height: 0;
+        margin: 0;
+    }
+}
+
+@media (max-width: 540px) {
+    .announce-list {
+        width: calc(100vw - (var(--safe-gap) * 2));
+    }
+
+    .announce-item {
+        grid-template-columns: 46px 1fr;
+    }
+
+    .announce-icon {
+        display: none;
+    }
+}
