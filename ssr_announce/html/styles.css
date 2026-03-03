@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    font-family: "Kanit", sans-serif;
+}
+
+.SM {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.annouce {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 5vh;
+}
+
+.annouce_wrap {
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+    margin-bottom: 1vh;
+    transform-origin: top center;
+    animation: announce-in 0.52s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: transform, opacity, filter;
+}
+
+.annouce_index {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 3vh;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.annouce_index-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 7.8vh;
+    height: 7.8vh;
+    left: 0;
+    transform: rotate(45deg);
+    background: var(--icon_color);
+    z-index: 1;
+}
+
+.annouce_index-title::before {
+    content: '';
+    position: absolute;
+    width: 7.8vh;
+    height: 7.8vh;
+    background: var(--icon_color);
+    opacity: .4;
+}
+
+.annouce_index-title::after {
+    content: '';
+    position: absolute;
+    width: 7.8vh;
+    height: 7.8vh;
+    background: var(--icon_color);
+    opacity: .2;
+}
+
+.annouce_index-title > img {
+    position: absolute;
+    width: 2vh;
+    height: 2vh;
+    transform: rotate(-45deg);
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.6));
+    z-index: 999;
+    animation: logo-float 1.8s ease-in-out infinite;
+}
+
+.annouce_index-text {
+    position: relative;
+    max-width: 100vh;
+    min-height: 3vh;
+    padding-left: 11.5vh;
+    padding-right: 4.5vh;
+    background: var(--bg_color);
+    border-radius: 0.2vh;
+    font-size: 1.4vh;
+    color: var(--text_color, #ffffff);
+    line-height: 3vh;
+    font-weight: 0;
+    font-family: "Athiti", sans-serif;
+}
+
+.annouce_index-text > span {
+    font-weight: 500;
+    color: var(--title_color);
+}
+
+.annouce_index-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 2vh;
+    height: 2vh;
+    right: 1vh;
+    transform: rotate(320deg);
+    border-radius: 100%;
+    z-index: 999;
+    font-size: 1.4vh;
+    color: #fff;
+}
+
+.annouce_index-multi {
+    display: none;
+    min-width: 3.2vh;
+    height: 3.2vh;
+    padding: 0 0.8vh;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+    font-size: 1.25vh;
+    font-weight: 600;
+    line-height: 3.2vh;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+}
+
+.annouce_index-multi.show {
+    display: inline-block;
+}
+
+.annouce_index-multi.bump {
+    animation: multi-bump 0.28s ease;
+}
+
+.slide-out {
+    animation: announce-out 0.42s cubic-bezier(0.4, 0, 1, 1) forwards;
+    pointer-events: none;
+}
+
+@keyframes announce-in {
+    0% {
+        transform: translateY(-18px) scale(0.96);
+        opacity: 0;
+        filter: blur(4px);
+    }
+
+    60% {
+        transform: translateY(2px) scale(1.01);
+        opacity: 1;
+        filter: blur(0);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes announce-out {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        max-height: 8vh;
+        margin-bottom: 1vh;
+        filter: blur(0);
+    }
+
+    100% {
+        transform: translateY(-10px) scale(0.97);
+        opacity: 0;
+        max-height: 0;
+        margin-bottom: 0;
+        filter: blur(2px);
+    }
+}
+
+@keyframes logo-float {
+    0%,
+    100% {
+        transform: rotate(-45deg) scale(1);
+        filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.6));
+    }
+
+    50% {
+        transform: rotate(-45deg) scale(1.12);
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.35));
+    }
+}
+
+@keyframes multi-bump {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.7;
+    }
+
+    60% {
+        transform: scale(1.12);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
